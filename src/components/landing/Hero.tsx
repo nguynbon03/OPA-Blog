@@ -152,30 +152,33 @@ export function Hero() {
       </motion.div>
 
       {/* ===== ROBOTS + ORBIT VISUAL ===== */}
-      <div className="relative z-5 mt-8 flex w-full justify-center items-end md:mt-12">
-        {/* Left Robot */}
+      <div className="relative z-5 mt-8 w-full md:mt-12">
+        {/* Left Robot — absolute, fades into bg */}
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
+          initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="hidden md:block shrink-0 -mr-4 lg:-mr-8 relative z-10"
+          transition={{ delay: 1, duration: 1.2 }}
+          className="hidden md:block absolute left-0 bottom-0 z-10 w-[220px] lg:w-[300px] xl:w-[360px]"
         >
-          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-            <div className="relative">
-              <div className="absolute inset-0 rounded-2xl bg-[#155eef]/15 blur-[30px]" />
-              <Image
-                src="/images/robot-left.jpg"
-                alt="AI Agent"
-                width={280}
-                height={170}
-                className="relative rounded-2xl w-[180px] lg:w-[240px] xl:w-[280px] border border-white/10 shadow-xl shadow-black/30"
-                style={{ mixBlendMode: "lighten" }}
-              />
-            </div>
+          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
+            <Image
+              src="/images/robot-left.jpg"
+              alt="AI Agent"
+              width={360}
+              height={220}
+              className="w-full"
+              style={{
+                mixBlendMode: "lighten",
+                maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 70%, transparent 100%), linear-gradient(to top, transparent 0%, black 20%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 70%, transparent 100%)",
+                WebkitMaskComposite: "source-in",
+              }}
+            />
           </motion.div>
         </motion.div>
 
         {/* Orbit center */}
+        <div className="flex justify-center">
         <div className="relative h-[229px] w-[285px] sm:h-[296px] sm:w-[368px] md:h-[370px] md:w-[460px] shrink-0">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -361,41 +364,43 @@ export function Hero() {
         </div>
         </motion.div>
         </div>
+        </div>
 
-        {/* Right Robot */}
+        {/* Right Robot — absolute, fades into bg */}
         <motion.div
-          initial={{ opacity: 0, x: 60 }}
+          initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 1.3, duration: 1 }}
-          className="hidden md:block shrink-0 -ml-4 lg:-ml-8 relative z-10"
+          transition={{ delay: 1.3, duration: 1.2 }}
+          className="hidden md:block absolute right-0 bottom-0 z-10 w-[220px] lg:w-[300px] xl:w-[360px]"
         >
-          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
-            <div className="relative">
-              <div className="absolute inset-0 rounded-2xl bg-[#155eef]/15 blur-[30px]" />
-              <Image
-                src="/images/robot-right.jpg"
-                alt="AI Network"
-                width={280}
-                height={170}
-                className="relative rounded-2xl w-[180px] lg:w-[240px] xl:w-[280px] border border-white/10 shadow-xl shadow-black/30"
-                style={{ mixBlendMode: "lighten" }}
-              />
-            </div>
+          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}>
+            <Image
+              src="/images/robot-right.jpg"
+              alt="AI Network"
+              width={360}
+              height={220}
+              className="w-full"
+              style={{
+                mixBlendMode: "lighten",
+                maskImage: "linear-gradient(to left, transparent 0%, black 15%, black 70%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 15%, black 70%, transparent 100%)",
+              }}
+            />
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Mobile robots — stacked below orbit */}
-      <div className="flex md:hidden gap-4 mt-4 justify-center">
+      {/* Mobile robots */}
+      <div className="flex md:hidden gap-2 mt-4 justify-center overflow-hidden">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
           <Image src="/images/robot-left.jpg" alt="AI Agent" width={160} height={100}
-            className="rounded-xl border border-white/10 shadow-lg w-[140px]"
-            style={{ mixBlendMode: "lighten" }} />
+            className="w-[150px]"
+            style={{ mixBlendMode: "lighten", maskImage: "radial-gradient(ellipse, black 50%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse, black 50%, transparent 80%)" }} />
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }}>
           <Image src="/images/robot-right.jpg" alt="AI Network" width={160} height={100}
-            className="rounded-xl border border-white/10 shadow-lg w-[140px]"
-            style={{ mixBlendMode: "lighten" }} />
+            className="w-[150px]"
+            style={{ mixBlendMode: "lighten", maskImage: "radial-gradient(ellipse, black 50%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse, black 50%, transparent 80%)" }} />
         </motion.div>
       </div>
 
