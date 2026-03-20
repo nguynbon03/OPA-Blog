@@ -100,13 +100,14 @@ export function Hero() {
       </motion.div>
 
       {/* ===== VISUAL ===== */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-        className="relative z-5 mx-auto mt-8 block origin-top scale-[0.62] sm:scale-[0.8] md:mt-10 md:scale-100"
-        style={{ width: 460, height: 370 }}
-      >
+      <div className="relative z-5 mt-8 flex w-full justify-center md:mt-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="relative origin-top scale-[0.62] sm:scale-[0.8] md:scale-100"
+          style={{ width: 460, height: 370 }}
+        >
         {/* Orbit ring */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 460 370">
           <circle cx="230" cy="175" r="130" fill="none" stroke="#155eef" strokeWidth="1" strokeOpacity="0.06" strokeDasharray="4 6" />
@@ -357,7 +358,8 @@ export function Hero() {
             </motion.span>
           </AnimatePresence>
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Scroll */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="mt-8">
