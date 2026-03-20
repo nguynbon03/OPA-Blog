@@ -8,6 +8,7 @@ import { Post } from "@/lib/models/Post";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { PostCard } from "@/components/blog/PostCard";
+import { Comments } from "@/components/blog/Comments";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -138,12 +139,16 @@ export default async function BlogPostPage({ params }: Props) {
           </>
         )}
 
+        {/* Comments */}
+        <Separator className="my-10 bg-border" />
+        <Comments postId={String(post._id)} />
+
         {/* Related posts */}
         {relatedPosts.length > 0 && (
           <>
             <Separator className="my-10 bg-border" />
             <h2 className="text-2xl font-bold font-[family-name:var(--font-heading)] mb-6">
-              Related Articles
+              Bài Viết Liên Quan
             </h2>
             <div className="grid gap-6 md:grid-cols-3">
               {relatedPosts.map((rp) => {

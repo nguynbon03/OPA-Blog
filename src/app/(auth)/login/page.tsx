@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { LogIn, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,6 +91,13 @@ export default function LoginPage() {
               {loading ? "Đang đăng nhập..." : "Đăng Nhập"}
             </Button>
           </form>
+
+          <p className="text-center text-sm text-[#667085] mt-6">
+            Chưa có tài khoản?{" "}
+            <Link href="/register" className="text-[#155eef] font-medium hover:underline">
+              Đăng Ký
+            </Link>
+          </p>
         </div>
       </div>
     </div>
