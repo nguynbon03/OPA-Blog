@@ -29,7 +29,9 @@ const nearPos = [
 ];
 
 const DURATIONS = [2200, 1800, 2200, 9000, 1500, 2000]; // stage 0-5
+const MOBILE_DURATIONS = [2200, 1800, 2200]; // stage 0-2
 const TOTAL = 6;
+const MOBILE_TOTAL = 3;
 
 const labels: { text: string; color: string }[] = [
   { text: "Prospect Discovery", color: "#155eef" },
@@ -42,24 +44,37 @@ const labels: { text: string; color: string }[] = [
 
 export function Hero() {
   const [stage, setStage] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const t = setTimeout(() => setStage((s) => (s + 1) % TOTAL), DURATIONS[stage]);
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    setStage((s) => s % (isMobile ? MOBILE_TOTAL : TOTAL));
+  }, [isMobile]);
+
+  useEffect(() => {
+    const totalStages = isMobile ? MOBILE_TOTAL : TOTAL;
+    const durations = isMobile ? MOBILE_DURATIONS : DURATIONS;
+    const t = setTimeout(() => setStage((s) => (s + 1) % totalStages), durations[stage]);
     return () => clearTimeout(t);
-  }, [stage]);
+  }, [stage, isMobile]);
 
   // Which positions to use
   const positions = stage === 0 ? farPos : nearPos;
   const showAvatars = stage <= 2;
   const showLines = stage === 2;
-  const showMockup = stage === 3 || stage === 4;
-  const orbInPhone = stage === 3 || stage === 4;
-  const showFilterStage = stage === 3;
-  const showResultStage = stage === 4; // badges xanh hiện 1s rồi mất
+  const showMockup = !isMobile && (stage === 3 || stage === 4);
+  const orbInPhone = !isMobile && (stage === 3 || stage === 4);
   const showRadar = stage === 0;
   // stage === 5: solo orb spinner — không gì khác hiện
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white px-4 pb-8 pt-16 sm:px-6">
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white px-4 pb-8 pt-24 sm:px-6 md:pt-16">
       {/* BG */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[#155eef]/[0.03] blur-[120px]" />
@@ -257,7 +272,7 @@ export function Hero() {
         </AnimatePresence>
 
         {/* ALL BADGES + PATHS — keyed by stage so React unmounts INSTANTLY on stage change */}
-        {stage === 3 && (
+        {!isMobile && stage === 3 && (
           <div key="filter-stage" className="absolute inset-0">
             {/* Path lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 460 370">
@@ -322,7 +337,7 @@ export function Hero() {
         )}
 
         {/* RESULT — brief flash of green then gone */}
-        {stage === 4 && (
+        {!isMobile && stage === 4 && (
           <div key="result-stage" className="absolute inset-0">
             <motion.div className="absolute" style={{ left: 310, top: 95 }}
               initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>
