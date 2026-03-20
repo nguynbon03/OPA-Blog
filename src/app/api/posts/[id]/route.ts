@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Post } from "@/lib/models/Post";
 import { requireAdmin } from "@/lib/auth";
+import { invalidateCache } from "@/lib/cache";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -43,6 +44,7 @@ export async function PATCH(req: NextRequest, ctx: RouteContext) {
     return Response.json({ success: false, error: "Not found" }, { status: 404 });
   }
 
+  await invalidateCache("posts:*");
   return Response.json({ success: true, data: post });
 }
 
@@ -57,5 +59,6 @@ export async function DELETE(_req: NextRequest, ctx: RouteContext) {
 
   await Post.findByIdAndUpdate(id, { status: "archived" });
 
+  await invalidateCache("posts:*");
   return Response.json({ success: true });
 }

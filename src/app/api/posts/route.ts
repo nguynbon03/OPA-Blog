@@ -3,47 +3,59 @@ import { connectDB } from "@/lib/db";
 import { Post } from "@/lib/models/Post";
 import { Category } from "@/lib/models/Category";
 import { requireAdmin } from "@/lib/auth";
+import { getCached, invalidateCache } from "@/lib/cache";
 import slugify from "slugify";
 import readingTime from "reading-time";
 
 export async function GET(req: NextRequest) {
-  await connectDB();
-
   const { searchParams } = req.nextUrl;
   const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
   const limit = Math.min(50, parseInt(searchParams.get("limit") || "9"));
   const category = searchParams.get("category");
   const q = searchParams.get("q");
 
-  const filter: Record<string, unknown> = { status: "published" };
+  // Cache only non-search, non-filtered requests (most common)
+  const canCache = !q && !category;
+  const cacheKey = `posts:page=${page}:limit=${limit}`;
 
-  if (category) {
-    const cat = await Category.findOne({ slug: category }).lean();
-    if (cat) filter.category = cat._id;
-  }
+  const result = await getCached(
+    canCache ? cacheKey : `nocache:${Date.now()}`,
+    canCache ? 60 : 0,
+    async () => {
+      await connectDB();
 
-  if (q) {
-    filter.$or = [
-      { title: { $regex: q, $options: "i" } },
-      { excerpt: { $regex: q, $options: "i" } },
-    ];
-  }
+      const filter: Record<string, unknown> = { status: "published" };
 
-  const [posts, total] = await Promise.all([
-    Post.find(filter)
-      .sort({ publishedAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .populate("category", "name slug color")
-      .lean(),
-    Post.countDocuments(filter),
-  ]);
+      if (category) {
+        const cat = await Category.findOne({ slug: category }).lean();
+        if (cat) filter.category = cat._id;
+      }
 
-  return Response.json({
-    success: true,
-    data: posts,
-    pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
-  });
+      if (q) {
+        filter.$or = [
+          { title: { $regex: q, $options: "i" } },
+          { excerpt: { $regex: q, $options: "i" } },
+        ];
+      }
+
+      const [posts, total] = await Promise.all([
+        Post.find(filter)
+          .sort({ publishedAt: -1 })
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .populate("category", "name slug color")
+          .lean(),
+        Post.countDocuments(filter),
+      ]);
+
+      return {
+        data: posts,
+        pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
+      };
+    }
+  );
+
+  return Response.json({ success: true, ...result });
 }
 
 export async function POST(req: NextRequest) {
@@ -66,5 +78,6 @@ export async function POST(req: NextRequest) {
     publishedAt: body.status === "published" ? new Date() : null,
   });
 
+  await invalidateCache("posts:*");
   return Response.json({ success: true, data: post }, { status: 201 });
 }

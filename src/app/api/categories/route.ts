@@ -2,11 +2,14 @@ import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Category } from "@/lib/models/Category";
 import { requireAdmin } from "@/lib/auth";
+import { getCached, invalidateCache } from "@/lib/cache";
 import slugify from "slugify";
 
 export async function GET() {
-  await connectDB();
-  const categories = await Category.find().sort({ order: 1 }).lean();
+  const categories = await getCached("categories:all", 300, async () => {
+    await connectDB();
+    return Category.find().sort({ order: 1 }).lean();
+  });
   return Response.json({ success: true, data: categories });
 }
 
@@ -24,5 +27,6 @@ export async function POST(req: NextRequest) {
     slug: slugify(body.name, { lower: true, strict: true }),
   });
 
+  await invalidateCache("categories:*");
   return Response.json({ success: true, data: category }, { status: 201 });
 }
