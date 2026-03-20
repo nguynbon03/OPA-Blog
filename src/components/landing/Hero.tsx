@@ -158,7 +158,7 @@ export function Hero() {
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1, duration: 1.2 }}
-          className="hidden md:block absolute left-0 bottom-0 z-10 w-[220px] lg:w-[300px] xl:w-[360px]"
+          className="hidden md:block absolute left-0 bottom-[25%] z-10 w-[220px] lg:w-[300px] xl:w-[360px]"
         >
           <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
             <Image
@@ -169,9 +169,8 @@ export function Hero() {
               className="w-full"
               style={{
                 mixBlendMode: "lighten",
-                maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 70%, transparent 100%), linear-gradient(to top, transparent 0%, black 20%)",
-                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 70%, transparent 100%)",
-                WebkitMaskComposite: "source-in",
+                maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 80%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 80%, transparent 100%)",
               }}
             />
           </motion.div>
@@ -371,7 +370,7 @@ export function Hero() {
           initial={{ opacity: 0, x: 80 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1.3, duration: 1.2 }}
-          className="hidden md:block absolute right-0 bottom-0 z-10 w-[220px] lg:w-[300px] xl:w-[360px]"
+          className="hidden md:block absolute right-0 bottom-[25%] z-10 w-[220px] lg:w-[300px] xl:w-[360px]"
         >
           <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}>
             <Image
@@ -382,8 +381,8 @@ export function Hero() {
               className="w-full"
               style={{
                 mixBlendMode: "lighten",
-                maskImage: "linear-gradient(to left, transparent 0%, black 15%, black 70%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 15%, black 70%, transparent 100%)",
+                maskImage: "linear-gradient(to left, transparent 0%, black 10%, black 80%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 10%, black 80%, transparent 100%)",
               }}
             />
           </motion.div>
