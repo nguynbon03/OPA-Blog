@@ -117,7 +117,7 @@ export function Comparison() {
           {/* MANUAL */}
           <div>
             {isMobile && (
-              <div className="sticky top-16 z-20 mb-4 rounded-2xl bg-[#101828] px-6 py-4 shadow-md">
+              <div className="mb-4 rounded-2xl bg-[#101828] px-6 py-4 shadow-md">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <h3 className="text-lg font-bold text-white">Manual Process</h3>
@@ -176,7 +176,7 @@ export function Comparison() {
           {/* AI */}
           <div>
             {isMobile && (
-              <div className="sticky top-16 z-20 mb-4 rounded-2xl bg-[#155eef] px-6 py-4 shadow-md shadow-[#155eef]/20">
+              <div className="mb-4 rounded-2xl bg-[#155eef] px-6 py-4 shadow-md shadow-[#155eef]/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <h3 className="text-lg font-bold text-white">OPA AI Process</h3>
