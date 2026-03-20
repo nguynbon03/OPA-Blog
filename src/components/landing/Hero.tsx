@@ -151,35 +151,32 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* ===== ROBOT IMAGE — centered ===== */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 1 }}
-        className="relative z-10 mt-8 md:mt-12"
-      >
-        <div className="relative">
-          {/* Glow behind robot */}
-          <div className="absolute inset-0 -inset-x-8 -inset-y-4 rounded-3xl bg-[#155eef]/10 blur-[40px]" />
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <Image
-              src="/images/hero-robot.jpg"
-              alt="AI Robot Agent"
-              width={500}
-              height={300}
-              className="relative rounded-2xl shadow-2xl shadow-black/40 border border-white/10 w-[320px] sm:w-[420px] md:w-[500px]"
-              priority
-            />
+      {/* ===== ROBOTS + ORBIT VISUAL ===== */}
+      <div className="relative z-5 mt-8 flex w-full justify-center items-end md:mt-12">
+        {/* Left Robot */}
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="hidden md:block shrink-0 -mr-4 lg:-mr-8 relative z-10"
+        >
+          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+            <div className="relative">
+              <div className="absolute inset-0 rounded-2xl bg-[#155eef]/15 blur-[30px]" />
+              <Image
+                src="/images/robot-left.jpg"
+                alt="AI Agent"
+                width={280}
+                height={170}
+                className="relative rounded-2xl w-[180px] lg:w-[240px] xl:w-[280px] border border-white/10 shadow-xl shadow-black/30"
+                style={{ mixBlendMode: "lighten" }}
+              />
+            </div>
           </motion.div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* ===== ORBIT VISUAL ===== */}
-      <div className="relative z-5 mt-6 flex w-full justify-center md:mt-8">
-        <div className="relative h-[229px] w-[285px] sm:h-[296px] sm:w-[368px] md:h-[370px] md:w-[460px]">
+        {/* Orbit center */}
+        <div className="relative h-[229px] w-[285px] sm:h-[296px] sm:w-[368px] md:h-[370px] md:w-[460px] shrink-0">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -364,6 +361,42 @@ export function Hero() {
         </div>
         </motion.div>
         </div>
+
+        {/* Right Robot */}
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.3, duration: 1 }}
+          className="hidden md:block shrink-0 -ml-4 lg:-ml-8 relative z-10"
+        >
+          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
+            <div className="relative">
+              <div className="absolute inset-0 rounded-2xl bg-[#155eef]/15 blur-[30px]" />
+              <Image
+                src="/images/robot-right.jpg"
+                alt="AI Network"
+                width={280}
+                height={170}
+                className="relative rounded-2xl w-[180px] lg:w-[240px] xl:w-[280px] border border-white/10 shadow-xl shadow-black/30"
+                style={{ mixBlendMode: "lighten" }}
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Mobile robots — stacked below orbit */}
+      <div className="flex md:hidden gap-4 mt-4 justify-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
+          <Image src="/images/robot-left.jpg" alt="AI Agent" width={160} height={100}
+            className="rounded-xl border border-white/10 shadow-lg w-[140px]"
+            style={{ mixBlendMode: "lighten" }} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }}>
+          <Image src="/images/robot-right.jpg" alt="AI Network" width={160} height={100}
+            className="rounded-xl border border-white/10 shadow-lg w-[140px]"
+            style={{ mixBlendMode: "lighten" }} />
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
