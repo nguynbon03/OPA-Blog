@@ -67,7 +67,6 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link href="/" className="text-xl font-bold font-[family-name:var(--font-heading)]">
           <span className="text-[#155eef]">OPA</span>
-          <span className="text-[#101828] ml-1">Blog</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">

@@ -29,9 +29,7 @@ const nearPos = [
 ];
 
 const DURATIONS = [2200, 1800, 2200, 9000, 1500, 2000]; // stage 0-5
-const MOBILE_DURATIONS = [2200, 1800, 2200]; // stage 0-2
 const TOTAL = 6;
-const MOBILE_TOTAL = 3;
 
 const labels: { text: string; color: string }[] = [
   { text: "Prospect Discovery", color: "#155eef" },
@@ -44,32 +42,18 @@ const labels: { text: string; color: string }[] = [
 
 export function Hero() {
   const [stage, setStage] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 768);
-    onResize();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
-  useEffect(() => {
-    setStage((s) => s % (isMobile ? MOBILE_TOTAL : TOTAL));
-  }, [isMobile]);
-
-  useEffect(() => {
-    const totalStages = isMobile ? MOBILE_TOTAL : TOTAL;
-    const durations = isMobile ? MOBILE_DURATIONS : DURATIONS;
-    const t = setTimeout(() => setStage((s) => (s + 1) % totalStages), durations[stage]);
+    const t = setTimeout(() => setStage((s) => (s + 1) % TOTAL), DURATIONS[stage]);
     return () => clearTimeout(t);
-  }, [stage, isMobile]);
+  }, [stage]);
 
   // Which positions to use
   const positions = stage === 0 ? farPos : nearPos;
   const showAvatars = stage <= 2;
   const showLines = stage === 2;
-  const showMockup = !isMobile && (stage === 3 || stage === 4);
-  const orbInPhone = !isMobile && (stage === 3 || stage === 4);
+  const showMockup = stage === 3 || stage === 4;
+  const orbInPhone = stage === 3 || stage === 4;
   const showRadar = stage === 0;
   // stage === 5: solo orb spinner — không gì khác hiện
 
@@ -273,7 +257,7 @@ export function Hero() {
         </AnimatePresence>
 
         {/* ALL BADGES + PATHS — keyed by stage so React unmounts INSTANTLY on stage change */}
-        {!isMobile && stage === 3 && (
+        {stage === 3 && (
           <div key="filter-stage" className="absolute inset-0">
             {/* Path lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 460 370">
@@ -338,7 +322,7 @@ export function Hero() {
         )}
 
         {/* RESULT — brief flash of green then gone */}
-        {!isMobile && stage === 4 && (
+        {stage === 4 && (
           <div key="result-stage" className="absolute inset-0">
             <motion.div className="absolute" style={{ left: 310, top: 95 }}
               initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>

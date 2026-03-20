@@ -75,7 +75,6 @@ export function Footer() {
           <div className="col-span-2">
             <Link href="/" className="text-xl font-bold font-[family-name:var(--font-heading)]">
               <span className="text-[#155eef]">OPA</span>
-              <span className="text-[#101828] ml-1">Blog</span>
             </Link>
             <p className="mt-4 text-sm text-[#667085] max-w-xs leading-relaxed">
               Đối tác công nghệ AI giúp doanh nghiệp Việt Nam tăng trưởng bền vững trong kỷ nguyên số.
