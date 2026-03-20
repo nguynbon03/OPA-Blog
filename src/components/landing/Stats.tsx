@@ -44,7 +44,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 
 export function Stats() {
   return (
-    <section className="py-20 px-6 bg-[#0f172a]">
+    <section className="bg-[#0f172a] px-4 py-16 md:px-6 md:py-20">
       <motion.div
         initial="hidden"
         whileInView="visible"

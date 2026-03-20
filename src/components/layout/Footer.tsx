@@ -69,7 +69,7 @@ export function Footer() {
 
   return (
     <footer className="bg-white border-t border-gray-100">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+      <div className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           {/* Brand + Newsletter */}
           <div className="col-span-2">
@@ -98,7 +98,7 @@ export function Footer() {
               <p className="text-xs font-semibold text-[#344054] mb-3 uppercase tracking-wider">
                 Đăng ký nhận tin
               </p>
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-col gap-2 sm:flex-row">
                 <input
                   type="email"
                   value={email}
@@ -108,7 +108,7 @@ export function Footer() {
                 />
                 <button
                   type="submit"
-                  className="shrink-0 rounded-full bg-[#155eef] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#0b4fd1] transition-colors shadow-sm"
+                  className="shrink-0 rounded-full bg-[#155eef] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#0b4fd1] transition-colors shadow-sm sm:w-auto"
                 >
                   {subscribed ? "Đã gửi!" : "Đăng ký"}
                 </button>

@@ -43,7 +43,7 @@ export function Testimonials() {
   const next = () => setCurrent((c) => (c + 1) % testimonials.length);
 
   return (
-    <section className="py-28 px-6 bg-white">
+    <section className="bg-white px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-sm font-semibold text-[#155eef] mb-3 tracking-wide uppercase">
           Testimonials
@@ -60,7 +60,7 @@ export function Testimonials() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="rounded-2xl bg-[#f8fafc] border border-gray-200 p-10 md:p-12"
+              className="rounded-2xl border border-gray-200 bg-[#f8fafc] p-6 md:p-12"
             >
               <div className="flex items-center justify-center gap-1 mb-6">
                 {Array.from({ length: testimonials[current].rating }).map((_, i) => (
@@ -68,7 +68,7 @@ export function Testimonials() {
                 ))}
               </div>
 
-              <p className="text-xl md:text-2xl text-[#101828] leading-relaxed mb-8 font-medium">
+              <p className="mb-8 text-lg leading-relaxed text-[#101828] font-medium md:text-2xl">
                 &ldquo;{testimonials[current].quote}&rdquo;
               </p>
               <div className="flex items-center justify-center gap-3">

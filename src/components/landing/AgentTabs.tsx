@@ -87,7 +87,7 @@ export function AgentTabs() {
   const current = agents.find((a) => a.id === active)!;
 
   return (
-    <section className="py-28 px-6 bg-[#f8fafc]">
+    <section className="bg-[#f8fafc] px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <p className="text-sm font-semibold text-[#155eef] mb-3 tracking-wide uppercase">
@@ -101,7 +101,7 @@ export function AgentTabs() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-[280px_1fr] gap-8">
+        <div className="grid gap-6 md:grid-cols-[280px_1fr] md:gap-8">
           <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             {agents.map((agent) => (
               <button
@@ -126,7 +126,7 @@ export function AgentTabs() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3 }}
-              className="rounded-2xl bg-white border border-gray-200 p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+              className="rounded-2xl border border-gray-200 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] md:p-10"
             >
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>

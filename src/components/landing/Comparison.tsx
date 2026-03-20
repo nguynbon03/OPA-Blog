@@ -29,6 +29,14 @@ const CARD_H = 48;
 export function Comparison() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeStep, setActiveStep] = useState(0); // 0-10
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -46,9 +54,11 @@ export function Comparison() {
 
   const manualHours = activeStep * 12;
   const aiMin = Math.min(Math.ceil(activeStep * 1.5), 15);
+  const currentStep = isMobile ? 10 : activeStep;
+  const currentAiStep = isMobile ? 4 : Math.ceil(activeStep / 2.5);
 
   return (
-    <section ref={sectionRef} id="comparison" className="relative bg-[#f8fafc]" style={{ padding: "80px 24px" }}>
+    <section ref={sectionRef} id="comparison" className="relative bg-[#f8fafc] px-4 py-16 md:px-6 md:py-20">
       <div className="mx-auto max-w-5xl">
         {/* Title */}
         <motion.div
@@ -65,16 +75,16 @@ export function Comparison() {
         </motion.div>
 
         {/* Sticky headers */}
-        <div className="sticky top-16 z-30 grid md:grid-cols-2 gap-6 mb-6">
+        <div className="z-30 grid gap-4 md:sticky md:top-16 md:mb-6 md:grid-cols-2 md:gap-6">
           <div className="rounded-2xl bg-[#101828] px-6 py-4 shadow-md flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h3 className="text-lg font-bold text-white">Manual Process</h3>
-              {activeStep >= 10 && (
+              <h3 className="text-base md:text-lg font-bold text-white">Manual Process</h3>
+              {currentStep >= 10 && (
                 <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white">Finally Done</span>
               )}
             </div>
             <div className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5">
-              <span className="text-sm font-bold tabular-nums w-8 text-right text-white">{manualHours}</span>
+              <span className="text-sm font-bold tabular-nums w-8 text-right text-white">{isMobile ? 120 : manualHours}</span>
               <span className="text-xs text-white/70">Hours</span>
             </div>
           </div>
@@ -85,16 +95,16 @@ export function Comparison() {
             />
             <div className="relative px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <h3 className={`text-lg font-bold transition-colors duration-300 ${activeStep > 0 ? "text-white" : "text-[#101828]"}`}>OPA AI Process</h3>
-                {activeStep >= 4 && (
+                <h3 className={`text-base md:text-lg font-bold transition-colors duration-300 ${currentStep > 0 ? "text-white" : "text-[#101828]"}`}>OPA AI Process</h3>
+                {currentStep >= 4 && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">
                     <Zap className="h-3 w-3" />Done
                   </span>
                 )}
               </div>
-              <div className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 ${activeStep > 2 ? "bg-white/20" : "bg-gray-100"}`}>
-                <span className={`text-sm font-bold tabular-nums w-6 text-right transition-colors duration-300 ${activeStep > 2 ? "text-white" : "text-[#101828]"}`}>{aiMin}</span>
-                <span className={`text-xs transition-colors duration-300 ${activeStep > 2 ? "text-white/80" : "text-[#667085]"}`}>Min</span>
+              <div className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 ${currentStep > 2 ? "bg-white/20" : "bg-gray-100"}`}>
+                <span className={`text-sm font-bold tabular-nums w-6 text-right transition-colors duration-300 ${currentStep > 2 ? "text-white" : "text-[#101828]"}`}>{isMobile ? 15 : aiMin}</span>
+                <span className={`text-xs transition-colors duration-300 ${currentStep > 2 ? "text-white/80" : "text-[#667085]"}`}>Min</span>
               </div>
             </div>
           </div>
@@ -105,9 +115,16 @@ export function Comparison() {
           {/* MANUAL */}
           <div>
             {manualSteps.map((step, i) => {
-              const done = i < activeStep;
+              const done = i < currentStep;
               return (
-                <div key={i} className="sticky mb-4" style={{ top: 140 + i * CARD_H, zIndex: 10 + i }}>
+                <div
+                  key={i}
+                  className="mb-4 md:sticky"
+                  style={{
+                    top: isMobile ? undefined : 140 + i * CARD_H,
+                    zIndex: isMobile ? undefined : 10 + i,
+                  }}
+                >
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -141,9 +158,16 @@ export function Comparison() {
           <div>
             {aiSteps.map((step, i) => {
               // AI steps complete faster: step 0 at activeStep 1, step 1 at 3, step 2 at 5, step 3 at 7
-              const done = i < Math.ceil(activeStep / 2.5);
+              const done = i < currentAiStep;
               return (
-                <div key={i} className="sticky mb-4" style={{ top: 140 + i * CARD_H, zIndex: 10 + i }}>
+                <div
+                  key={i}
+                  className="mb-4 md:sticky"
+                  style={{
+                    top: isMobile ? undefined : 140 + i * CARD_H,
+                    zIndex: isMobile ? undefined : 10 + i,
+                  }}
+                >
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +195,13 @@ export function Comparison() {
                 </div>
               );
             })}
-            <div className="sticky" style={{ top: 140 + 4 * CARD_H, zIndex: 15 }}>
+            <div
+              className="md:sticky"
+              style={{
+                top: isMobile ? undefined : 140 + 4 * CARD_H,
+                zIndex: isMobile ? undefined : 15,
+              }}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}

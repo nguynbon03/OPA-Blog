@@ -59,7 +59,7 @@ export function Hero() {
   // stage === 5: solo orb spinner — không gì khác hiện
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white pt-16 pb-8">
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white px-4 pb-8 pt-16 sm:px-6">
       {/* BG */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[#155eef]/[0.03] blur-[120px]" />
@@ -68,7 +68,7 @@ export function Hero() {
       </div>
 
       {/* Text */}
-      <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="relative z-10 mx-auto max-w-4xl px-2 text-center sm:px-6">
         <motion.div variants={fadeUp} className="mb-6">
           <span className="inline-flex items-center gap-2 rounded-full bg-[#eff6ff] border border-[#155eef]/10 px-5 py-2 text-sm font-medium text-[#155eef]">
             <span className="relative flex h-2 w-2">

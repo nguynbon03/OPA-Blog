@@ -16,7 +16,7 @@ const flowAvatars = [
 
 export function CTA() {
   return (
-    <section id="contact" className="py-24 px-6">
+    <section id="contact" className="px-4 py-20 md:px-6 md:py-24">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -39,7 +39,7 @@ export function CTA() {
           </svg>
         </div>
 
-        <div className="relative z-10 px-8 md:px-16 py-16 md:py-20">
+        <div className="relative z-10 px-5 py-12 md:px-16 md:py-20">
           <div className="grid md:grid-cols-[1fr_auto] gap-10 items-center">
             {/* Text side */}
             <div>

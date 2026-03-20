@@ -79,7 +79,7 @@ function ServiceCard({ service, index }: { service: typeof services[number]; ind
       style={{ y, opacity: cardOpacity }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.25 }}
-      className={`relative group rounded-2xl border border-gray-200 p-8 hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] hover:border-transparent overflow-hidden ${service.span}`}
+      className={`relative group overflow-hidden rounded-2xl border border-gray-200 p-6 md:p-8 hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] hover:border-transparent ${service.span}`}
     >
       <div style={{ backgroundColor: service.bg }} className="absolute inset-0 rounded-2xl" />
       <div className="relative z-10">
@@ -105,11 +105,11 @@ function ServiceCard({ service, index }: { service: typeof services[number]; ind
 
         {/* Stats row for featured card */}
         {service.stats && (
-          <div className="flex gap-6 mb-6 pb-5 border-b border-gray-200/60">
+          <div className="mb-6 grid grid-cols-3 gap-3 border-b border-gray-200/60 pb-5">
             {service.stats.map((stat) => (
-              <div key={stat.label} className="flex items-center gap-2">
-                <stat.icon className="h-4 w-4" style={{ color: service.color }} />
-                <div>
+              <div key={stat.label} className="flex items-center gap-2 md:justify-start justify-center">
+                <stat.icon className="h-4 w-4 shrink-0" style={{ color: service.color }} />
+                <div className="min-w-0">
                   <p className="text-lg font-bold text-[#101828]">{stat.value}</p>
                   <p className="text-[11px] text-[#667085]">{stat.label}</p>
                 </div>
@@ -146,7 +146,7 @@ function ServiceCard({ service, index }: { service: typeof services[number]; ind
 
 export function BentoServices() {
   return (
-    <section id="services" className="py-28 px-6 bg-white">
+    <section id="services" className="bg-white px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial="hidden"
