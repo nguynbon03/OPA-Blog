@@ -76,8 +76,8 @@ export function Comparison() {
           </h2>
         </motion.div>
 
-        {/* Sticky headers */}
-        <div className="z-30 grid gap-4 md:sticky md:top-16 md:mb-6 md:grid-cols-2 md:gap-6">
+        {/* Sticky headers (desktop) */}
+        <div className="z-30 hidden gap-4 md:sticky md:top-16 md:mb-6 md:grid md:grid-cols-2 md:gap-6">
           <div className="rounded-2xl bg-[#101828] px-6 py-4 shadow-md flex items-center justify-between">
             <div className="flex items-center gap-3">
               <h3 className="text-base md:text-lg font-bold text-white">Manual Process</h3>
@@ -113,9 +113,26 @@ export function Comparison() {
         </div>
 
         {/* Cards grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           {/* MANUAL */}
           <div>
+            {isMobile && (
+              <div className="sticky top-16 z-20 mb-4 rounded-2xl bg-[#101828] px-6 py-4 shadow-md">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-lg font-bold text-white">Manual Process</h3>
+                    {currentStep >= 10 && (
+                      <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white">Finally Done</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5">
+                    <span className="text-sm font-bold tabular-nums w-8 text-right text-white">{manualHours}</span>
+                    <span className="text-xs text-white/70">Hours</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {manualSteps.map((step, i) => {
               const done = i < currentStep;
               return (
@@ -158,6 +175,25 @@ export function Comparison() {
 
           {/* AI */}
           <div>
+            {isMobile && (
+              <div className="sticky top-16 z-20 mb-4 rounded-2xl bg-[#155eef] px-6 py-4 shadow-md shadow-[#155eef]/20">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-lg font-bold text-white">OPA AI Process</h3>
+                    {currentStep >= 4 && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[#fef08a] px-3 py-1 text-xs font-semibold text-[#101828]">
+                        <Zap className="h-3 w-3" />Done
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-full bg-white/85 px-3 py-1.5">
+                    <span className="text-sm font-bold tabular-nums w-6 text-right text-[#101828]">{aiMin}</span>
+                    <span className="text-xs text-[#667085]">Min</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {aiSteps.map((step, i) => {
               // AI steps complete faster: step 0 at activeStep 1, step 1 at 3, step 2 at 5, step 3 at 7
               const done = i < currentAiStep;
