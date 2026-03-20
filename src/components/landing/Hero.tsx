@@ -40,6 +40,98 @@ const labels: { text: string; color: string }[] = [
   { text: "Ready to Deploy", color: "#155eef" },
 ];
 
+function HeroRobot({ side }: { side: "left" | "right" }) {
+  const isLeft = side === "left";
+  const color = isLeft ? "#155eef" : "#2970ff";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1, delay: isLeft ? 0.8 : 1.2 }}
+      className={`absolute top-1/2 -translate-y-1/2 hidden xl:block ${isLeft ? "left-[2%] 2xl:left-[5%]" : "right-[2%] 2xl:right-[5%]"}`}
+    >
+      <motion.div
+        animate={{ y: [0, -12, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: isLeft ? 0 : 1 }}
+      >
+        <svg width="140" height="180" viewBox="0 0 140 180" fill="none">
+          {/* Glow */}
+          <motion.circle
+            cx="70" cy="90" r="60"
+            fill={color} opacity="0.04"
+            animate={{ r: [60, 70, 60], opacity: [0.04, 0.08, 0.04] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+
+          {/* Antenna */}
+          <motion.circle cx="70" cy="10" r="7" fill={color}
+            animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <line x1="70" y1="17" x2="70" y2="38" stroke={color} strokeWidth="2.5" />
+
+          {/* Head */}
+          <rect x="28" y="38" width="84" height="56" rx="16" fill={color} />
+
+          {/* Visor */}
+          <rect x="38" y="50" width="64" height="28" rx="8" fill="#0a1628" opacity="0.3" />
+
+          {/* Eyes */}
+          <motion.circle cx="55" cy="64" r="8" fill="white"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+          />
+          <motion.circle cx="85" cy="64" r="8" fill="white"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
+          />
+          <motion.circle cx={isLeft ? "57" : "53"} cy="64" r="3.5" fill="#101828"
+            animate={{ cx: isLeft ? [57, 60, 57] : [83, 86, 83] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.circle cx={isLeft ? "87" : "83"} cy="64" r="3.5" fill="#101828"
+            animate={{ cx: isLeft ? [87, 90, 87] : [83, 86, 83] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* Mouth — smile */}
+          <path d="M58 78 Q70 86 82 78" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.7" />
+
+          {/* Body */}
+          <rect x="34" y="100" width="72" height="46" rx="12" fill={color} opacity="0.85" />
+
+          {/* Chest light */}
+          <motion.circle cx="70" cy="123" r="6" fill="#5c9cfc"
+            animate={{ opacity: [0.3, 1, 0.3], r: [6, 7, 6] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+
+          {/* Chest lines */}
+          <rect x="50" y="110" width="40" height="2" rx="1" fill="white" opacity="0.15" />
+          <rect x="55" y="136" width="30" height="2" rx="1" fill="white" opacity="0.1" />
+
+          {/* Arms */}
+          <motion.rect x="10" y="106" width="20" height="10" rx="5" fill={color} opacity="0.7"
+            animate={{ rotate: isLeft ? [0, -20, 0] : [0, 10, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            style={{ transformOrigin: "30px 111px" }}
+          />
+          <motion.rect x="110" y="106" width="20" height="10" rx="5" fill={color} opacity="0.7"
+            animate={{ rotate: isLeft ? [0, 10, 0] : [0, -20, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            style={{ transformOrigin: "110px 111px" }}
+          />
+
+          {/* Feet */}
+          <rect x="40" y="150" width="22" height="12" rx="6" fill={color} opacity="0.6" />
+          <rect x="78" y="150" width="22" height="12" rx="6" fill={color} opacity="0.6" />
+        </svg>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export function Hero() {
   const [stage, setStage] = useState(0);
 
@@ -59,12 +151,70 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white px-4 pb-8 pt-24 sm:px-6 md:pt-16">
-      {/* BG */}
+      {/* BG — tech grid + gradient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[#155eef]/[0.03] blur-[120px]" />
-        <div className="absolute top-[55%] left-[20%] w-[400px] h-[400px] rounded-full bg-[#5c9cfc]/[0.02] blur-[80px]" />
-        <div className="absolute top-[55%] right-[20%] w-[300px] h-[300px] rounded-full bg-[#155eef]/[0.02] blur-[60px]" />
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `linear-gradient(rgba(21,94,239,1) 1px, transparent 1px), linear-gradient(90deg, rgba(21,94,239,1) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }} />
+
+        {/* Gradient orbs */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[#155eef]/[0.04] blur-[120px]" />
+        <motion.div
+          className="absolute top-[20%] left-[10%] w-[400px] h-[400px] rounded-full bg-[#5c9cfc]/[0.03] blur-[100px]"
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-[50%] right-[5%] w-[350px] h-[350px] rounded-full bg-[#8b5cf6]/[0.03] blur-[90px]"
+          animate={{ x: [0, -25, 0], y: [0, 25, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-[10%] left-[30%] w-[300px] h-[300px] rounded-full bg-[#155eef]/[0.025] blur-[80px]"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Floating particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-[#155eef]/20"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${20 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.8,
+            }}
+          />
+        ))}
+
+        {/* Circuit lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 1200 800" fill="none">
+          <path d="M0 400 H300 Q320 400 320 380 V280 Q320 260 340 260 H500" stroke="#155eef" strokeWidth="1.5" />
+          <path d="M700 260 H860 Q880 260 880 280 V380 Q880 400 900 400 H1200" stroke="#155eef" strokeWidth="1.5" />
+          <path d="M0 300 H150 Q170 300 170 320 V500 Q170 520 190 520 H400" stroke="#5c9cfc" strokeWidth="1" />
+          <path d="M800 520 H1010 Q1030 520 1030 500 V320 Q1030 300 1050 300 H1200" stroke="#5c9cfc" strokeWidth="1" />
+          <circle cx="320" cy="260" r="3" fill="#155eef" />
+          <circle cx="880" cy="400" r="3" fill="#155eef" />
+          <circle cx="170" cy="520" r="2.5" fill="#5c9cfc" />
+          <circle cx="1030" cy="300" r="2.5" fill="#5c9cfc" />
+        </svg>
       </div>
+
+      {/* Robots */}
+      <HeroRobot side="left" />
+      <HeroRobot side="right" />
 
       {/* Text */}
       <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="relative z-10 mx-auto max-w-4xl px-2 text-center sm:px-6">
@@ -85,12 +235,12 @@ export function Hero() {
           OPA kết hợp sức mạnh Marketing, Công nghệ và AI tiên tiến để giúp doanh nghiệp Việt Nam tăng trưởng bền vững.
         </motion.p>
         <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/blog">
+          <Link href="/contact">
             <button className="inline-flex items-center gap-2 rounded-full bg-[#155eef] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-[#155eef]/25 hover:bg-[#0b4fd1] transition-all hover:-translate-y-0.5">
               Tư Vấn Miễn Phí <ArrowRight className="h-4 w-4" />
             </button>
           </Link>
-          <Link href="/#services">
+          <Link href="/services">
             <button className="inline-flex items-center rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-semibold text-[#344054] hover:bg-gray-50 transition-all shadow-sm">
               Xem Dịch Vụ
             </button>
