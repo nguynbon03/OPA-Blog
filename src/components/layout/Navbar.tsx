@@ -233,32 +233,48 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72 bg-white border-gray-200">
               <div className="flex flex-col gap-2 mt-8">
-                {/* Admin info on mobile */}
-                {isAdmin && (
-                  <div className="px-3 py-3 mb-2 rounded-xl bg-[#155eef]/5 border border-[#155eef]/10">
+                {/* Auth buttons — always on top */}
+                {isLoggedIn ? (
+                  <div className="px-3 py-3 mb-3 rounded-xl bg-[#155eef]/5 border border-[#155eef]/10">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="h-8 w-8 rounded-full bg-[#155eef] flex items-center justify-center">
                         <User className="h-4 w-4 text-white" />
                       </div>
                       <div>
                         <p className="text-sm font-medium text-[#101828]">
-                          {session?.user?.name || "Admin"}
+                          {session?.user?.name}
                         </p>
-                        <p className="text-xs text-[#667085]">
-                          {(session?.user as { role?: string })?.role}
+                        <p className="text-xs text-[#667085] capitalize">
+                          {userRole}
                         </p>
                       </div>
                     </div>
-                    <Link
-                      href="/admin"
-                      className="flex items-center gap-2 text-xs font-medium text-[#155eef] mt-1"
-                    >
-                      <LayoutDashboard className="h-3 w-3" />
-                      Admin Panel
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        className="flex items-center gap-2 text-xs font-medium text-[#155eef] mt-1"
+                      >
+                        <LayoutDashboard className="h-3 w-3" />
+                        Admin Panel
+                      </Link>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex gap-2 mb-3">
+                    <Link href="/login" className="flex-1">
+                      <button className="w-full rounded-full border border-gray-200 text-[#344054] py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors">
+                        Đăng Nhập
+                      </button>
+                    </Link>
+                    <Link href="/register" className="flex-1">
+                      <button className="w-full rounded-full bg-[#155eef] text-white py-2.5 text-sm font-semibold hover:bg-[#0b4fd1] transition-colors">
+                        Đăng Ký
+                      </button>
                     </Link>
                   </div>
                 )}
 
+                {/* Nav links */}
                 {navLinks.map((link, idx) =>
                   isDropdown(link) ? (
                     <div key={link.label} className="space-y-1">
@@ -287,27 +303,15 @@ export function Navbar() {
                   )
                 )}
 
-                {isLoggedIn ? (
+                {/* Logout at bottom */}
+                {isLoggedIn && (
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-red-200 text-red-500 py-3 font-medium hover:bg-red-50 transition-colors"
+                    className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-red-200 text-red-500 py-2.5 text-sm font-medium hover:bg-red-50 transition-colors"
                   >
                     <LogOut className="h-4 w-4" />
                     Đăng Xuất
                   </button>
-                ) : (
-                  <div className="mt-4 space-y-2">
-                    <Link href="/login" className="block">
-                      <button className="w-full rounded-full border border-gray-200 text-[#344054] py-3 font-medium hover:bg-gray-50 transition-colors">
-                        Đăng Nhập
-                      </button>
-                    </Link>
-                    <Link href="/register" className="block">
-                      <button className="w-full rounded-full bg-[#155eef] text-white py-3 font-semibold hover:bg-[#0b4fd1] transition-colors">
-                        Đăng Ký
-                      </button>
-                    </Link>
-                  </div>
                 )}
               </div>
             </SheetContent>
