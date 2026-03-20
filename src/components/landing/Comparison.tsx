@@ -53,6 +53,14 @@ export function Comparison() {
       const sectionH = sectionRef.current.offsetHeight;
       const scrolled = -rect.top; // how far we've scrolled into section
       const ratio = Math.max(0, Math.min(scrolled / (sectionH - window.innerHeight), 1));
+
+      // Trigger final state a bit earlier so when reaching the last card header,
+      // manual progress already shows 120h like desktop behavior.
+      if (ratio >= 0.88) {
+        setActiveStep(10);
+        return;
+      }
+
       setActiveStep(Math.round(ratio * 10));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
