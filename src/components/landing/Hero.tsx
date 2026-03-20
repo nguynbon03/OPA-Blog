@@ -104,7 +104,7 @@ export function Hero() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}
-        className="relative z-5 mt-10 hidden md:block"
+        className="relative z-5 mx-auto mt-8 block origin-top scale-[0.62] sm:scale-[0.8] md:mt-10 md:scale-100"
         style={{ width: 460, height: 370 }}
       >
         {/* Orbit ring */}
