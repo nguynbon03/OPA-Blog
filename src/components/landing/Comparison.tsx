@@ -76,48 +76,125 @@ export function Comparison() {
           </h2>
         </motion.div>
 
-        {/* Sticky headers (desktop) */}
-        <div className="z-30 hidden gap-4 md:sticky md:top-16 md:mb-6 md:grid md:grid-cols-2 md:gap-6">
-          <div className="rounded-2xl bg-[#101828] px-6 py-4 shadow-md flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <h3 className="text-base md:text-lg font-bold text-white">Manual Process</h3>
-              {currentStep >= 10 && (
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white">Finally Done</span>
-              )}
-            </div>
-            <div className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5">
-              <span className="text-sm font-bold tabular-nums w-8 text-right text-white">{manualHours}</span>
-              <span className="text-xs text-white/70">Hours</span>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden relative">
-            <div
-              className="absolute inset-0 bg-[#155eef] rounded-2xl transition-all duration-500 ease-out"
-              style={{ width: `${progressWidth}%` }}
-            />
-            <div className="relative px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <h3 className={`text-base md:text-lg font-bold transition-colors duration-300 ${aiHeaderOnBlue ? "text-white" : "text-[#101828]"}`}>OPA AI Process</h3>
-                {currentStep >= 4 && (
-                  <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${aiHeaderOnBlue ? "bg-white/20 text-white" : "bg-[#155eef]/10 text-[#155eef]"}`}>
-                    <Zap className="h-3 w-3" />Done
-                  </span>
-                )}
+        {!isMobile ? (
+          <>
+            {/* Sticky headers (desktop) */}
+            <div className="z-30 hidden gap-4 md:sticky md:top-16 md:mb-6 md:grid md:grid-cols-2 md:gap-6">
+              <div className="rounded-2xl bg-[#101828] px-6 py-4 shadow-md flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-base md:text-lg font-bold text-white">Manual Process</h3>
+                  {currentStep >= 10 && (
+                    <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white">Finally Done</span>
+                  )}
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5">
+                  <span className="text-sm font-bold tabular-nums w-8 text-right text-white">{manualHours}</span>
+                  <span className="text-xs text-white/70">Hours</span>
+                </div>
               </div>
-              <div className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 ${aiHeaderOnBlue ? "bg-white/20" : "bg-gray-100"}`}>
-                <span className={`text-sm font-bold tabular-nums w-6 text-right transition-colors duration-300 ${aiHeaderOnBlue ? "text-white" : "text-[#101828]"}`}>{aiMin}</span>
-                <span className={`text-xs transition-colors duration-300 ${aiHeaderOnBlue ? "text-white/80" : "text-[#667085]"}`}>Min</span>
+              <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden relative">
+                <div
+                  className="absolute inset-0 bg-[#155eef] rounded-2xl transition-all duration-500 ease-out"
+                  style={{ width: `${progressWidth}%` }}
+                />
+                <div className="relative px-6 py-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <h3 className={`text-base md:text-lg font-bold transition-colors duration-300 ${aiHeaderOnBlue ? "text-white" : "text-[#101828]"}`}>OPA AI Process</h3>
+                    {currentStep >= 4 && (
+                      <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${aiHeaderOnBlue ? "bg-white/20 text-white" : "bg-[#155eef]/10 text-[#155eef]"}`}>
+                        <Zap className="h-3 w-3" />Done
+                      </span>
+                    )}
+                  </div>
+                  <div className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 ${aiHeaderOnBlue ? "bg-white/20" : "bg-gray-100"}`}>
+                    <span className={`text-sm font-bold tabular-nums w-6 text-right transition-colors duration-300 ${aiHeaderOnBlue ? "text-white" : "text-[#101828]"}`}>{aiMin}</span>
+                    <span className={`text-xs transition-colors duration-300 ${aiHeaderOnBlue ? "text-white/80" : "text-[#667085]"}`}>Min</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Cards grid */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* MANUAL */}
-          <div>
-            {isMobile && (
-              <div className="mb-4 rounded-2xl bg-[#101828] px-6 py-4 shadow-md">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div>
+                {manualSteps.map((step, i) => {
+                  const done = i < currentStep;
+                  return (
+                    <div key={i} className="mb-4 md:sticky" style={{ top: 140 + i * CARD_H, zIndex: 10 + i }}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.4 }}
+                        className="rounded-xl bg-white border border-gray-100 p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-3">
+                            <CircleDot className="h-4 w-4 text-gray-300 shrink-0" />
+                            <span className="text-sm font-semibold text-[#101828]">{i + 1}. {step.text}</span>
+                          </div>
+                          <div
+                            className="h-6 w-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
+                            style={{ backgroundColor: done ? "#101828" : "#f3f4f6", border: done ? "none" : "1px solid #e5e7eb" }}
+                          >
+                            {done && <Check className="h-3.5 w-3.5 text-white" />}
+                          </div>
+                        </div>
+                        <p className="text-xs text-[#667085] ml-7 leading-relaxed">{step.desc}</p>
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div>
+                {aiSteps.map((step, i) => {
+                  const done = i < currentAiStep;
+                  return (
+                    <div key={i} className="mb-4 md:sticky" style={{ top: 140 + i * CARD_H, zIndex: 10 + i }}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                        className="rounded-xl bg-white border border-[#155eef]/10 p-5 shadow-[0_2px_8px_rgba(21,94,239,0.04)]"
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-3">
+                            <Zap className="h-4 w-4 text-[#155eef] shrink-0" />
+                            <span className="text-sm font-semibold text-[#101828]">{i + 1}. {step.text}</span>
+                          </div>
+                          <div
+                            className="h-6 w-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
+                            style={{ backgroundColor: done ? "#155eef" : "#f3f4f6", border: done ? "none" : "1px solid #e5e7eb" }}
+                          >
+                            {done && <Check className="h-3.5 w-3.5 text-white" />}
+                          </div>
+                        </div>
+                        <p className="text-xs text-[#667085] ml-7 leading-relaxed">{step.desc}</p>
+                      </motion.div>
+                    </div>
+                  );
+                })}
+                <div className="md:sticky" style={{ top: 140 + 4 * CARD_H, zIndex: 15 }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="rounded-xl bg-[#f0f5ff] p-5 border border-[#155eef]/5"
+                  >
+                    <p className="text-sm text-[#344054] leading-relaxed">
+                      Khi CRM được kết nối, AI tự xử lý chấm điểm, follow-up, đặt lịch và xác nhận — đưa meeting thẳng vào calendar, không cần thao tác thủ công.
+                    </p>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="space-y-8">
+            <div>
+              <div className="sticky top-16 z-20 mb-4 rounded-2xl bg-[#101828] px-6 py-4 shadow-md">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <h3 className="text-lg font-bold text-white">Manual Process</h3>
@@ -131,52 +208,39 @@ export function Comparison() {
                   </div>
                 </div>
               </div>
-            )}
 
-            {manualSteps.map((step, i) => {
-              const done = i < currentStep;
-              return (
-                <div
-                  key={i}
-                  className="mb-4 md:sticky"
-                  style={{
-                    top: isMobile ? undefined : 140 + i * CARD_H,
-                    zIndex: isMobile ? undefined : 10 + i,
-                  }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.4 }}
-                    className="rounded-xl bg-white border border-gray-100 p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-3">
-                        <CircleDot className="h-4 w-4 text-gray-300 shrink-0" />
-                        <span className="text-sm font-semibold text-[#101828]">{i + 1}. {step.text}</span>
+              {manualSteps.map((step, i) => {
+                const done = i < currentStep;
+                return (
+                  <div key={i} className="mb-4">
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.4 }}
+                      className="rounded-xl bg-white border border-gray-100 p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-3">
+                          <CircleDot className="h-4 w-4 text-gray-300 shrink-0" />
+                          <span className="text-sm font-semibold text-[#101828]">{i + 1}. {step.text}</span>
+                        </div>
+                        <div
+                          className="h-6 w-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
+                          style={{ backgroundColor: done ? "#101828" : "#f3f4f6", border: done ? "none" : "1px solid #e5e7eb" }}
+                        >
+                          {done && <Check className="h-3.5 w-3.5 text-white" />}
+                        </div>
                       </div>
-                      <div
-                        className="h-6 w-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
-                        style={{
-                          backgroundColor: done ? "#101828" : "#f3f4f6",
-                          border: done ? "none" : "1px solid #e5e7eb",
-                        }}
-                      >
-                        {done && <Check className="h-3.5 w-3.5 text-white" />}
-                      </div>
-                    </div>
-                    <p className="text-xs text-[#667085] ml-7 leading-relaxed">{step.desc}</p>
-                  </motion.div>
-                </div>
-              );
-            })}
-          </div>
+                      <p className="text-xs text-[#667085] ml-7 leading-relaxed">{step.desc}</p>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
 
-          {/* AI */}
-          <div>
-            {isMobile && (
-              <div className="mb-4 rounded-2xl bg-[#155eef] px-6 py-4 shadow-md shadow-[#155eef]/20">
+            <div>
+              <div className="sticky top-16 z-20 mb-4 rounded-2xl bg-[#155eef] px-6 py-4 shadow-md shadow-[#155eef]/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <h3 className="text-lg font-bold text-white">OPA AI Process</h3>
@@ -192,54 +256,36 @@ export function Comparison() {
                   </div>
                 </div>
               </div>
-            )}
 
-            {aiSteps.map((step, i) => {
-              // AI steps complete faster: step 0 at activeStep 1, step 1 at 3, step 2 at 5, step 3 at 7
-              const done = i < currentAiStep;
-              return (
-                <div
-                  key={i}
-                  className="mb-4 md:sticky"
-                  style={{
-                    top: isMobile ? undefined : 140 + i * CARD_H,
-                    zIndex: isMobile ? undefined : 10 + i,
-                  }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                    className="rounded-xl bg-white border border-[#155eef]/10 p-5 shadow-[0_2px_8px_rgba(21,94,239,0.04)]"
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-3">
-                        <Zap className="h-4 w-4 text-[#155eef] shrink-0" />
-                        <span className="text-sm font-semibold text-[#101828]">{i + 1}. {step.text}</span>
+              {aiSteps.map((step, i) => {
+                const done = i < currentAiStep;
+                return (
+                  <div key={i} className="mb-4">
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                      className="rounded-xl bg-white border border-[#155eef]/10 p-5 shadow-[0_2px_8px_rgba(21,94,239,0.04)]"
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-3">
+                          <Zap className="h-4 w-4 text-[#155eef] shrink-0" />
+                          <span className="text-sm font-semibold text-[#101828]">{i + 1}. {step.text}</span>
+                        </div>
+                        <div
+                          className="h-6 w-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
+                          style={{ backgroundColor: done ? "#155eef" : "#f3f4f6", border: done ? "none" : "1px solid #e5e7eb" }}
+                        >
+                          {done && <Check className="h-3.5 w-3.5 text-white" />}
+                        </div>
                       </div>
-                      <div
-                        className="h-6 w-6 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
-                        style={{
-                          backgroundColor: done ? "#155eef" : "#f3f4f6",
-                          border: done ? "none" : "1px solid #e5e7eb",
-                        }}
-                      >
-                        {done && <Check className="h-3.5 w-3.5 text-white" />}
-                      </div>
-                    </div>
-                    <p className="text-xs text-[#667085] ml-7 leading-relaxed">{step.desc}</p>
-                  </motion.div>
-                </div>
-              );
-            })}
-            <div
-              className="md:sticky"
-              style={{
-                top: isMobile ? undefined : 140 + 4 * CARD_H,
-                zIndex: isMobile ? undefined : 15,
-              }}
-            >
+                      <p className="text-xs text-[#667085] ml-7 leading-relaxed">{step.desc}</p>
+                    </motion.div>
+                  </div>
+                );
+              })}
+
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -253,7 +299,7 @@ export function Comparison() {
               </motion.div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
