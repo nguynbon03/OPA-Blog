@@ -29,18 +29,18 @@ function isDropdown(item: NavItem): item is NavDropdown {
 }
 
 const navLinks: NavItem[] = [
-  { href: "/", label: "Trang Chu" },
-  { href: "/#services", label: "Dich Vu" },
+  { href: "/", label: "Trang Chủ" },
+  { href: "/#services", label: "Dịch Vụ" },
   {
-    label: "Tai Nguyen",
+    label: "Tài Nguyên",
     children: [
-      { href: "/blog", label: "Blog", icon: BookOpen, desc: "Bai viet va insights moi nhat" },
-      { href: "/#faq", label: "Cau Hoi", icon: HelpCircle, desc: "Giai dap thac mac thuong gap" },
-      { href: "#", label: "Case Study", icon: FileText, desc: "Ket qua thuc te tu khach hang" },
-      { href: "#", label: "Cong Dong", icon: Users, desc: "Tham gia mang luoi OPA" },
+      { href: "/blog", label: "Blog", icon: BookOpen, desc: "Bài viết và insights mới nhất" },
+      { href: "/#faq", label: "Câu Hỏi", icon: HelpCircle, desc: "Giải đáp thắc mắc thường gặp" },
+      { href: "#", label: "Case Study", icon: FileText, desc: "Kết quả thực tế từ khách hàng" },
+      { href: "#", label: "Cộng Đồng", icon: Users, desc: "Tham gia mạng lưới OPA" },
     ],
   },
-  { href: "/#contact", label: "Lien He" },
+  { href: "/#contact", label: "Liên Hệ" },
 ];
 
 export function Navbar() {
@@ -195,7 +195,7 @@ export function Navbar() {
                         className="w-full flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 transition-colors"
                       >
                         <LogOut className="h-3.5 w-3.5" />
-                        Dang Xuat
+                        Đăng Xuất
                       </button>
                     </motion.div>
                   )}
@@ -206,12 +206,12 @@ export function Navbar() {
             <>
               <Link href="/admin/login">
                 <button className="text-sm font-medium px-4 py-2 rounded-full text-[#475467] hover:text-[#101828] transition-colors">
-                  Dang Nhap
+                  Đăng Nhập
                 </button>
               </Link>
               <Link href="/blog">
                 <button className="text-sm font-semibold px-5 py-2.5 rounded-full bg-[#155eef] text-white hover:bg-[#0b4fd1] shadow-sm shadow-[#155eef]/20 transition-all">
-                  Bat Dau
+                  Bắt Đầu
                 </button>
               </Link>
             </>
@@ -286,18 +286,18 @@ export function Navbar() {
                     className="mt-4 w-full flex items-center justify-center gap-2 rounded-full border border-red-200 text-red-500 py-3 font-medium hover:bg-red-50 transition-colors"
                   >
                     <LogOut className="h-4 w-4" />
-                    Dang Xuat
+                    Đăng Xuất
                   </button>
                 ) : (
                   <div className="mt-4 space-y-2">
                     <Link href="/admin/login" className="block">
                       <button className="w-full rounded-full border border-gray-200 text-[#344054] py-3 font-medium hover:bg-gray-50 transition-colors">
-                        Dang Nhap
+                        Đăng Nhập
                       </button>
                     </Link>
                     <Link href="/blog" className="block">
                       <button className="w-full rounded-full bg-[#155eef] text-white py-3 font-semibold hover:bg-[#0b4fd1] transition-colors">
-                        Bat Dau
+                        Bắt Đầu
                       </button>
                     </Link>
                   </div>
