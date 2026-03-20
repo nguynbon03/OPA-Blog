@@ -162,8 +162,8 @@ export function Hero() {
         >
           <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
             <Image
-              src="/images/robot-left.jpg"
-              alt="AI Agent"
+              src="/images/robot-right.jpg"
+              alt="AI Network"
               width={360}
               height={220}
               className="w-full"
@@ -374,8 +374,8 @@ export function Hero() {
         >
           <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}>
             <Image
-              src="/images/robot-right.jpg"
-              alt="AI Network"
+              src="/images/robot-left.jpg"
+              alt="AI Agent"
               width={360}
               height={220}
               className="w-full"
