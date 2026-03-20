@@ -254,8 +254,8 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72 bg-white border-gray-200">
               <div className="flex flex-col gap-2 mt-8">
-                {/* Auth buttons — always on top */}
-                {isLoggedIn ? (
+                {/* User info (logged in only) */}
+                {isLoggedIn && (
                   <div className="px-3 py-3 mb-3 rounded-xl bg-[#155eef]/5 border border-[#155eef]/10">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="h-8 w-8 rounded-full bg-[#155eef] flex items-center justify-center">
@@ -279,19 +279,6 @@ export function Navbar() {
                         Admin Panel
                       </Link>
                     )}
-                  </div>
-                ) : (
-                  <div className="flex gap-2 mb-3">
-                    <Link href="/login" className="flex-1">
-                      <button className="w-full rounded-full border border-gray-200 text-[#344054] py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors">
-                        Đăng Nhập
-                      </button>
-                    </Link>
-                    <Link href="/register" className="flex-1">
-                      <button className="w-full rounded-full bg-[#155eef] text-white py-2.5 text-sm font-semibold hover:bg-[#0b4fd1] transition-colors">
-                        Đăng Ký
-                      </button>
-                    </Link>
                   </div>
                 )}
 
