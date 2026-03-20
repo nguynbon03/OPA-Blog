@@ -30,17 +30,17 @@ function isDropdown(item: NavItem): item is NavDropdown {
 
 const navLinks: NavItem[] = [
   { href: "/", label: "Trang Chủ" },
-  { href: "/#services", label: "Dịch Vụ" },
+  { href: "/services", label: "Dịch Vụ" },
   {
     label: "Tài Nguyên",
     children: [
       { href: "/blog", label: "Blog", icon: BookOpen, desc: "Bài viết và insights mới nhất" },
+      { href: "/about", label: "Về OPA", icon: Users, desc: "Tìm hiểu về đội ngũ và sứ mệnh" },
       { href: "/#faq", label: "Câu Hỏi", icon: HelpCircle, desc: "Giải đáp thắc mắc thường gặp" },
-      { href: "#", label: "Case Study", icon: FileText, desc: "Kết quả thực tế từ khách hàng" },
-      { href: "#", label: "Cộng Đồng", icon: Users, desc: "Tham gia mạng lưới OPA" },
+      { href: "/blog", label: "Case Study", icon: FileText, desc: "Kết quả thực tế từ khách hàng" },
     ],
   },
-  { href: "/#contact", label: "Liên Hệ" },
+  { href: "/contact", label: "Liên Hệ" },
 ];
 
 export function Navbar() {

@@ -36,20 +36,19 @@ const socials = [
 
 const footerLinks = {
   "Dịch Vụ": [
-    { label: "Marketing", href: "/#services" },
-    { label: "Công Nghệ", href: "/#services" },
-    { label: "AI Solutions", href: "/#services" },
-    { label: "Đào Tạo", href: "/#services" },
+    { label: "Marketing", href: "/services" },
+    { label: "Công Nghệ", href: "/services" },
+    { label: "AI Solutions", href: "/services" },
+    { label: "Đào Tạo", href: "/services" },
   ],
   "Về Chúng Tôi": [
-    { label: "Đội Ngũ", href: "/#about" },
+    { label: "Giới Thiệu", href: "/about" },
     { label: "Blog", href: "/blog" },
-    { label: "Liên Hệ", href: "/#contact" },
+    { label: "Liên Hệ", href: "/contact" },
   ],
   "Tài Nguyên": [
-    { label: "Tài Liệu", href: "#" },
-    { label: "Case Study", href: "#" },
-    { label: "Cộng Đồng", href: "#" },
+    { label: "Blog", href: "/blog" },
+    { label: "Case Study", href: "/blog" },
     { label: "Câu Hỏi", href: "/#faq" },
   ],
 };
