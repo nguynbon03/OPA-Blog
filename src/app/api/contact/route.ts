@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Contact } from "@/lib/models/Contact";
 import { requireAdmin } from "@/lib/auth";
+import { sendContactNotification } from "@/lib/mail";
 
 export async function GET(req: NextRequest) {
   const session = await requireAdmin();
@@ -61,6 +62,8 @@ export async function POST(req: NextRequest) {
     email: body.email,
     message: body.message,
   });
+
+  sendContactNotification({ name: body.name, email: body.email, message: body.message });
 
   return Response.json({ success: true, data: { id: contact._id } }, { status: 201 });
 }

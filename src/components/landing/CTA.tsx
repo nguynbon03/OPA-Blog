@@ -52,9 +52,9 @@ export function CTA() {
                 Mở Rộng Nhanh Hơn.
               </motion.h2>
               <motion.div variants={fadeUp} className="mt-8">
-                <Link href="/blog">
+                <Link href="/contact">
                   <button className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-base font-semibold text-[#155eef] shadow-lg shadow-black/10 hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                    Bắt Đầu Ngay
+                    Tư Vấn Miễn Phí
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </Link>

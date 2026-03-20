@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Newsletter } from "@/lib/models/Newsletter";
 import { requireAdmin } from "@/lib/auth";
+import { sendNewsletterWelcome } from "@/lib/mail";
 
 export async function GET() {
   const session = await requireAdmin();
@@ -47,6 +48,8 @@ export async function POST(req: NextRequest) {
   }
 
   await Newsletter.create({ email: body.email.toLowerCase() });
+
+  sendNewsletterWelcome(body.email.toLowerCase());
 
   return Response.json({ success: true, data: { subscribed: true } }, { status: 201 });
 }
