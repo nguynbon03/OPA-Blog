@@ -398,18 +398,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Mobile robots */}
-      <div className="flex md:hidden gap-4 mt-4 justify-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
-          <Image src="/images/robot-right.png" alt="AI Agent" width={120} height={160}
-            className="w-[100px] drop-shadow-[0_0_20px_rgba(21,94,239,0.3)]" />
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }}>
-          <Image src="/images/robot-left.png" alt="AI Network" width={120} height={160}
-            className="w-[100px] drop-shadow-[0_0_20px_rgba(21,94,239,0.3)]"
-            />
-        </motion.div>
-      </div>
+      {/* Mobile: no robots — screen too small, focus on content */}
 
       {/* Scroll indicator */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="mt-8">
