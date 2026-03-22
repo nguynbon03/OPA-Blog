@@ -153,34 +153,6 @@ export function Hero() {
 
       {/* ===== ROBOTS + ORBIT VISUAL ===== */}
       <div className="relative z-5 mt-8 w-full md:mt-12">
-        {/* Left Robot — flipped to face right, Hollywood style */}
-        <motion.div
-          initial={{ opacity: 0, x: -80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 1, duration: 1.2 }}
-          className="hidden md:block absolute left-[1%] lg:left-[3%] xl:left-[6%] bottom-[25%] z-10"
-        >
-          <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
-            <div className="relative">
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 rounded-full bg-[#155eef]/25 blur-[25px]" />
-              <motion.div
-                className="absolute inset-0 rounded-full"
-                style={{ background: "radial-gradient(ellipse at 60% 30%, rgba(92,156,252,0.15) 0%, transparent 60%)" }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-              <Image
-                src="/images/robot-right.png"
-                alt="AI Agent"
-                width={400}
-                height={500}
-                className="relative w-[200px] lg:w-[280px] xl:w-[350px] drop-shadow-[0_0_40px_rgba(21,94,239,0.35)]"
-                style={{ transform: "scaleX(-1)" }}
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-
         {/* Orbit center */}
         <div className="flex justify-center">
         <div className="relative h-[229px] w-[285px] sm:h-[296px] sm:w-[368px] md:h-[370px] md:w-[460px] shrink-0">
@@ -370,35 +342,7 @@ export function Hero() {
         </div>
         </div>
 
-        {/* Right Robot — original orientation */}
-        <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 1.3, duration: 1.2 }}
-          className="hidden md:block absolute right-[1%] lg:right-[3%] xl:right-[6%] bottom-[25%] z-10"
-        >
-          <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}>
-            <div className="relative">
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-8 rounded-full bg-[#155eef]/25 blur-[25px]" />
-              <motion.div
-                className="absolute inset-0 rounded-full"
-                style={{ background: "radial-gradient(ellipse at 40% 30%, rgba(92,156,252,0.15) 0%, transparent 60%)" }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-              />
-              <Image
-                src="/images/robot-left.png"
-                alt="AI Network"
-                width={400}
-                height={500}
-                className="relative w-[200px] lg:w-[280px] xl:w-[350px] drop-shadow-[0_0_40px_rgba(21,94,239,0.35)]"
-              />
-            </div>
-          </motion.div>
-        </motion.div>
       </div>
-
-      {/* Mobile: no robots — screen too small, focus on content */}
 
       {/* Scroll indicator */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.5 }} className="mt-8">
